@@ -313,3 +313,105 @@ This renders the `index.html` file that will be used to interact with the backen
 **Throws**
 
 - `403` if the user is not logged in
+
+## API routes I Added
+
+#### `POST /api/contactInformationDisplay` - Creates new contact information Display view
+
+**Body** _(no need to add fields that are not being changed)_
+
+- `contactInformationDisplayed` _{boolean}_ - whether the information will be displayed on a user's profile
+- `username` _{string}_ - The user's username
+- `password` _{string}_ - The user's password
+- `contactNumber` _{string}_ - contact number of the user
+- `contactEmail` _{string}_ - contact email of the user
+- `contactWebsite` _{string}_ - contact website of the user
+- `contactAddress` _{string}_ - contact address of the user
+
+ * @throws {400} - If contactNumber is not valid
+
+**Returns**
+
+- A success message
+- An object with the update contact information details 
+
+**Throws**
+
+- `400` If contactNumber is not valid
+
+#### `Put /api/contactInformationDisplay` - Updates contact information Display view
+
+**Body** _(no need to add fields that are not being changed)_
+
+- `contactInformationDisplayed` _{boolean}_ - whether the information will be displayed on a user's profile
+- `username` _{string}_ - The user's username
+- `password` _{string}_ - The user's password
+- `contactNumber` _{string}_ - contact number of the user
+- `contactEmail` _{string}_ - contact email of the user
+- `contactWebsite` _{string}_ - contact website of the user
+- `contactAddress` _{string}_ - contact address of the user
+
+ * @throws {400} - If contactNumber is not valid
+
+**Returns**
+
+- A success message
+- An object with the update contact information details 
+
+**Throws**
+
+- `400` If contactNumber is not valid
+
+#### `POST /api/groupTagging` - Creates new group for group tagging
+**Body**
+
+- `groupname` _{string}_ - name of group
+
+**Returns**
+
+- A success message
+- An object with the new group
+
+
+#### `PUT /api/contactInformationDisplay/:groupId?` - Creates new contact information Display view
+**Body**
+
+- `username` _{string}_ - Member to be added
+
+**Returns**
+
+- A success message
+- An object with the updated group
+
+**Throws**
+
+- `400` if user does not exist
+
+#### `DELETE /api/contactInformationDisplay/:groupId?` - Creates new contact information Display view
+**Body**
+
+- `username` _{string}_ - Member to be removed
+
+**Returns**
+
+- A success message
+- An object with the updated group
+
+**Throws**
+
+- `400` if user not in group
+
+#### `PUT /api/contactInformationDisplay/:groupId?` - Creates new contact information Display view
+**Body**
+
+- `username` _{string}_ - Member to be added
+- `admin` _{boolean}_ - change member's status to admin
+
+**Returns**
+
+- A success message
+- An object with the updated group
+
+**Throws**
+
+- `400` if user does not exist in group
