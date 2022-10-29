@@ -3,12 +3,12 @@ import type {ContactInformationDisplay} from './model';
 import ContactInformationDisplayModel from './model';
 
 /**
- * This file contains a class with functionality to interact with users stored
+ * This file contains a class with functionality to interact with contact information displays stored
  * in MongoDB, including adding, finding, updating, and deleting. Feel free to add
  * additional operations in this file.
  *
- * Note: HydratedDocument<User> is the output of the UserModel() constructor,
- * and contains all the information in User. https://mongoosejs.com/docs/typescript.html
+ * Note: HydratedDocument<ContactInformationDisplay> is the output of the ContactInformationDisplayModel() constructor,
+ * and contains all the information in ContactInformationDisplay. https://mongoosejs.com/docs/typescript.html
  */
 class ContactInformationDisplayCollection {
   /**
@@ -29,41 +29,65 @@ class ContactInformationDisplayCollection {
   }
 
   /**
-   * Update user's information
+   * Update user's contact information
    *
    * @param {string} username - The username of the user to update
    * @param {Object} contactDetails - An object with the user's updated contact information
-   * @return {Promise<HydratedDocument<ContactInformationDisplay>>} - The updated contact information
+   * @return {Promise<HydratedDocument<ContactInformationDisplay>>} - The updated contact information display
    */
   static async updateOne(username: string, contactDetails: any): Promise<HydratedDocument<ContactInformationDisplay>> {
     const contactInformation = await ContactInformationDisplayModel.findOne({username});
 
+    // Only update information if a value is given
     if (contactDetails.contactInformationDisplayed) {
       contactInformation.contactInformationDisplayed = contactDetails.contactInformationDisplayed as boolean;
     }
 
-    if (contactDetails.username) {
-      contactInformation.username = contactDetails.username as string;
-    }
-
+    // If a value of 'delete' is given, remove the previous value from the display
     if (contactDetails.contactNumber) {
-      contactInformation.contactNumber = contactDetails.contactNumber as string;
+      if (contactDetails.contactNumber === 'delete') {
+        contactInformation.contactNumber = '';
+      } else {
+        contactInformation.contactNumber = contactDetails.contactNumber as string;
+      }
     }
 
     if (contactDetails.contactEmail) {
-      contactInformation.contactNumber = contactDetails.contactNumber as string;
+      if (contactDetails.contactEmail === 'delete') {
+        contactInformation.contactEmail = '';
+      } else {
+        contactInformation.contactEmail = contactDetails.contactEmail as string;
+      }
     }
 
     if (contactDetails.contactWebsite) {
-      contactInformation.contactNumber = contactDetails.contactNumber as string;
+      if (contactDetails.contactWebsite === 'delete') {
+        contactInformation.contactWebsite = '';
+      } else {
+        contactInformation.contactWebsite = contactDetails.contactWebsite as string;
+      }
     }
 
     if (contactDetails.contactAddress) {
-      contactInformation.contactNumber = contactDetails.contactNumber as string;
+      if (contactDetails.contactAddress === 'delete') {
+        contactInformation.contactAddress = '';
+      } else {
+        contactInformation.contactAddress = contactDetails.contactAddress as string;
+      }
     }
 
     await contactInformation.save();
     return contactInformation;
+  }
+
+  /**
+   * Find a user by username (case insensitive).
+   *
+   * @param {string} username - The username of the user to find
+   * @return {Promise<HydratedDocument<ContactInformationDisplay>> | Promise<null>} - The user with the given username, if any
+   */
+  static async findOneByUsername(username: string): Promise<HydratedDocument<ContactInformationDisplay>> {
+    return ContactInformationDisplayModel.findOne({username: new RegExp(`^${username.trim()}$`, 'i')});
   }
 }
 

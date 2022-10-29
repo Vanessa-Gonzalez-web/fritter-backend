@@ -38,7 +38,22 @@ const formsAndHandlers = {
   'view-freets-by-author': viewFreetsByAuthor,
   'create-freet': createFreet,
   'edit-freet': editFreet,
-  'delete-freet': deleteFreet
+  'delete-freet': deleteFreet,
+  'create-contact-display': createContactInformationDisplay,
+  'update-contact-display': updateContactInformationDisplay,
+  'get-contact-display': getContactInformationDisplay,
+  'create-follow-view': createFollowersView,
+  'add-follower': addUserFollower,
+  'remove-follower': removeUserFollower,
+  'get-followers': getUserFollowers,
+  'get-following': getUserFollowing,
+  'create-group': createGroup,
+  'get-group': getGroup,
+  'add-group-member': addGroupMember,
+  'remove-group-member': removeGroupMember,
+  'add-group-admin': addAdminMember,
+  'remove-group-admin': removeAdminMember,
+  'add-group-group': addGroupTag
 };
 
 // Attach handlers to forms

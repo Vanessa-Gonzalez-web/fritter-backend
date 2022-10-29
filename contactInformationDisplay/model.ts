@@ -18,7 +18,7 @@ export type ContactInformationDisplay = {
 };
 
 // Mongoose schema definition for interfacing with a MongoDB table
-// Users stored in this table will have these fields, with the
+// Contact Information Display stored in this table will have these fields, with the
 // type given by the type property, inside MongoDB
 const ContactInformationDisplaySchema = new Schema({
   // Determines whether contact Information will be displayed
@@ -26,7 +26,7 @@ const ContactInformationDisplaySchema = new Schema({
     type: Boolean,
     required: true
   },
-  // Username of client where contact information will be displayed
+  // Username of user where contact information will be displayed
   username: {
     type: String,
     required: true

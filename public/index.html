@@ -5,6 +5,9 @@
   <meta name="author" content="6.170 Staff">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="/stylesheets/style.css">
+  <script src="/scripts/groupTagging.js"></script>
+  <script src="/scripts/followers.js"></script>
+  <script src="/scripts/contactInformationDisplay.js"></script>
   <script src="/scripts/freet.js"></script>
   <script src="/scripts/user.js"></script>
   <script src="/scripts/index.js"></script>
@@ -117,6 +120,224 @@
           </div>
           <input type="submit" value="Delete Freet">
         </form>
+
+        <form id="create-contact-display">
+          <h3>Create Contact Information Display</h3>
+          <div>
+            <label for="contactInformationDisplayed">Should Contact Information Be Displayed? (yes or no):</label>
+            <input id="contactInformationDisplayed" name="contactInformationDisplayed">
+          </div>
+          <div>
+            <label for="username">Username:</label>
+            <input id="username" name="username">
+          </div>
+          <div>
+            <label for="contactNumber">Contact Number:</label>
+            <input id="contactNumber" name="contactNumber">
+          </div>
+          <div>
+            <label for="contactEmail">Contact Email:</label>
+            <input id="contactEmail" name="contactEmail">
+          </div>
+          <div>
+            <label for="contactWebsite">Contact Website:</label>
+            <input id="contactWebsite" name="contactWebsite">
+          </div>
+          <div>
+            <label for="contactAddress">Contact Address:</label>
+            <input id="contactAddress" name="contactAddress">
+          </div>
+          <input type="submit" value="Create Contact Information for User">
+        </form>
+
+        <form id="update-contact-display">
+          <h3>Update Contact Information Display</h3>
+          <h5>Write delete (case sensitive) into a field you would like to remove</h5>
+          <div>
+            <label for="contactInformationDisplayed">Should Contact Information Be Displayed? (yes or no):</label>
+            <input id="contactInformationDisplayed" name="contactInformationDisplayed">
+          </div>
+          <div>
+            <label for="username">Username:</label>
+            <input id="username" name="username">
+          </div>
+          <div>
+            <label for="contactNumber">Contact Number:</label>
+            <input id="contactNumber" name="contactNumber">
+          </div>
+          <div>
+            <label for="contactEmail">Contact Email:</label>
+            <input id="contactEmail" name="contactEmail">
+          </div>
+          <div>
+            <label for="contactWebsite">Contact Website:</label>
+            <input id="contactWebsite" name="contactWebsite">
+          </div>
+          <div>
+            <label for="contactAddress">Contact Address:</label>
+            <input id="contactAddress" name="contactAddress">
+          </div>
+          <input type="submit" value="Update Contact Information for User">
+        </form>
+
+        <form id="get-contact-display">
+          <h3>Get User's Contact Information Display</h3>
+          <div>
+            <label for="username">Username:</label>
+            <input id="username" name="username">
+          </div>
+          <input type="submit" value="Get Contact Information for User">
+        </form>
+
+        <form id="create-follow-view">
+          <h3>Create User's Follow View!</h3>
+          <div>
+            <label for="username">Username:</label>
+            <input id="username" name="username">
+          </div>
+          <input type="submit" value="Create Follow View for User">
+        </form>
+
+        <form id="add-follower">
+          <h3>Follow Another User!</h3>
+          <div>
+            <label for="usernameOfFollowed">Username of User to Be Followed:</label>
+            <input id="usernameOfFollowed" name="usernameOfFollowed">
+          </div>
+          <div>
+            <label for="usernameOfFollower">Username of User that is Doing the Following:</label>
+            <input id="usernameOfFollower" name="usernameOfFollower">
+            <input id='add' name='add' type='hidden' value='true'>
+          </div>
+          <input type="submit" value="Follow the User!">
+        </form>
+
+        <form id="remove-follower">
+          <h3>Unfollow Another User!</h3>
+          <div>
+            <label for="usernameOfFollowed">Username of User that Was Followed:</label>
+            <input id="usernameOfFollowed" name="usernameOfFollowed">
+          </div>
+          <div>
+            <label for="usernameOfFollower">Username of User that is Doing the Unfollowing:</label>
+            <input id="usernameOfFollower" name="usernameOfFollower">
+            <input id='add' name='add' type='hidden' value='false'>
+          </div>
+          <input type="submit" value="Unfollow the User!">
+        </form>
+
+        <form id="get-followers">
+          <h3>Get a User's Followers!</h3>
+          <div>
+            <label for="username">Username:</label>
+            <input id="username" name="username">
+            <input id='followers' name='followers' type='hidden' value='true'>
+          </div>
+          <input type="submit" value="Get User's Followers">
+        </form>
+
+        <form id="get-following">
+          <h3>Get a User's Following (other Users that they follow)!</h3>
+          <div>
+            <label for="username">Username:</label>
+            <input id="username" name="username">
+            <input id='followers' name='followers' type='hidden' value='false'>
+          </div>
+          <input type="submit" value="Get User's Following">
+        </form>
+
+        <form id="create-group">
+          <h3>Make a new Group!</h3>
+          <div>
+            <label for="groupUsername">Group Username:</label>
+            <input id="groupUsername" name="groupUsername">
+          </div>
+          <div>
+            <label for="groupCreatorUsername">Group Creator Username:</label>
+            <input id="groupCreatorUsername" name="groupCreatorUsername">
+          </div>
+          <input type="submit" value="Create Group">
+        </form>
+
+        <form id="get-group">
+          <h3>Get Group Information!</h3>
+          <div>
+            <label for="groupUsername">Group Username:</label>
+            <input id="groupUsername" name="groupUsername">
+          </div>
+          <input type="submit" value="Get Group">
+        </form>
+
+        <form id="add-group-member">
+          <h3>Add a new Member to a Group!</h3>
+          <div>
+            <label for="groupUsername">Group Username:</label>
+            <input id="groupUsername" name="groupUsername">
+          </div>
+          <div>
+            <label for="addedGroupMemberUsername">New Member Username:</label>
+            <input id="addedGroupMemberUsername" name="addedGroupMemberUsername">
+          </div>
+          <input id='action' name='action' type='hidden' value='addMember'>
+          <input type="submit" value="Add new Member to Group">
+        </form>
+
+        <form id="remove-group-member">
+          <h3>Remove a new Member from a Group!</h3>
+          <div>
+            <label for="groupUsername">Group Username:</label>
+            <input id="groupUsername" name="groupUsername">
+          </div>
+          <div>
+            <label for="removedGroupMemberUsername">Member Username:</label>
+            <input id="removedGroupMemberUsername" name="removedGroupMemberUsername">
+          </div>
+          <input id='action' name='action' type='hidden' value='removeMember'>
+          <input type="submit" value="Remove Member from Group">
+        </form>
+
+        <form id="add-group-admin">
+          <h3>Add a new Admin to a Group!</h3>
+          <div>
+            <label for="groupUsername">Group Username:</label>
+            <input id="groupUsername" name="groupUsername">
+          </div>
+          <div>
+            <label for="addedAdminUsername">New Admin Username:</label>
+            <input id="addedAdminUsername" name="addedAdminUsername">
+          </div>
+          <input id='action' name='action' type='hidden' value='addAdmin'>
+          <input type="submit" value="Add new Member to Group">
+        </form>
+
+        <form id="remove-group-admin">
+          <h3>Remove a new Admin from a Group!</h3>
+          <div>
+            <label for="groupUsername">Group Username:</label>
+            <input id="groupUsername" name="groupUsername">
+          </div>
+          <div>
+            <label for="removedAdminUsername">Admin Username:</label>
+            <input id="removedAdminUsername" name="removedAdminUsername">
+          </div>
+          <input id='action' name='action' type='hidden' value='removeAdmin'>
+          <input type="submit" value="Remove Member from Group">
+        </form>
+
+        <form id="add-group-group">
+          <h3>Add a Tagged Freet to a Group!</h3>
+          <div>
+            <label for="groupUsername">Group Username:</label>
+            <input id="groupUsername" name="groupUsername">
+          </div>
+          <div>
+            <label for="taggedFreetId">Tagged Freet Id:</label>
+            <input id="taggedFreetId" name="taggedFreetId">
+          </div>
+          <input id='action' name='action' type='hidden' value='addTag'>
+          <input type="submit" value="Add Tagged Freet to Group">
+        </form>
+
       </div>
     </section>
     <section>

@@ -318,7 +318,7 @@ This renders the `index.html` file that will be used to interact with the backen
 
 #### `POST /api/contactInformationDisplay` - Creates new contact information Display view
 
-**Body** _(no need to add fields that are not being changed)_
+**Body** _(no need to add fields that are not being displayed)_
 
 - `contactInformationDisplayed` _{boolean}_ - whether the information will be displayed on a user's profile
 - `username` _{string}_ - The user's username
@@ -328,30 +328,23 @@ This renders the `index.html` file that will be used to interact with the backen
 - `contactWebsite` _{string}_ - contact website of the user
 - `contactAddress` _{string}_ - contact address of the user
 
- * @throws {400} - If contactNumber is not valid
-
 **Returns**
 
 - A success message
-- An object with the update contact information details 
+- An object with the contact information display details 
 
 **Throws**
 
 - `400` If contactNumber is not valid
+- `403` - If the user is not logged in
+- `409` - If the contact information display for a user already exists
 
-#### `Put /api/contactInformationDisplay` - Updates contact information Display view
+#### `PUT /api/contactInformationDisplay` - Updates contact information Display view
 
-**Body** _(no need to add fields that are not being changed)_
+**Body** _(no need to add fields that are not being changed, removed fields that are given the input 'deleted')_
 
 - `contactInformationDisplayed` _{boolean}_ - whether the information will be displayed on a user's profile
-- `username` _{string}_ - The user's username
-- `password` _{string}_ - The user's password
-- `contactNumber` _{string}_ - contact number of the user
-- `contactEmail` _{string}_ - contact email of the user
-- `contactWebsite` _{string}_ - contact website of the user
-- `contactAddress` _{string}_ - contact address of the user
-
- * @throws {400} - If contactNumber is not valid
+- `body` _{string}_ - contains other contact information to be updated- removes information if a field has the value 'delete'
 
 **Returns**
 
@@ -361,22 +354,44 @@ This renders the `index.html` file that will be used to interact with the backen
 **Throws**
 
 - `400` If contactNumber is not valid
+- `403` - If the user is not logged in
+- `404` - If the user contact information does not exist
+
+#### `GET /api/contactInformationDisplay?username=username` - Gets a user's contact information by username
+
+**Returns**
+
+- A success message
+- An object with the update contact information details 
+
+**Throws**
+
+- `400` - If username is not given
+- `404` - If the user contact information does not exist
 
 #### `POST /api/groupTagging` - Creates new group for group tagging
 **Body**
 
-- `groupname` _{string}_ - name of group
+- `groupUsername` _{string}_ - The username of the group
 
 **Returns**
 
 - A success message
 - An object with the new group
 
+**Throws**
 
-#### `PUT /api/contactInformationDisplay/:groupId?` - Creates new contact information Display view
+- `400` - If username is not given
+- `403` - If user is not logged in
+- `404` - If group creator with the given username does not exist
+- `409` - If group with the given username already exists
+
+#### `PUT /api/groupTagging?groupUsername=username1&addedGroupMemberUsername=username2&action=addMember` - Adds a New Member to a Group
+
 **Body**
 
-- `username` _{string}_ - Member to be added
+-`groupUsername` _{string}_ - The name of the group
+- `addedGroupMemberUsername` _{string}_ - The username the user being added to the group
 
 **Returns**
 
@@ -385,12 +400,16 @@ This renders the `index.html` file that will be used to interact with the backen
 
 **Throws**
 
-- `400` if user does not exist
+- `400` - If user with username is not given
+- `403` - If user is not logged in
+- `404` - If group with the given username does not exist or user with given username does not exist
 
-#### `DELETE /api/contactInformationDisplay/:groupId?` - Creates new contact information Display view
+#### `PUT /api/groupTagging?groupUsername=username1&removedGroupMemberUsername=username2&action=removeMember` - Removes a Member from a Group
+
 **Body**
 
-- `username` _{string}_ - Member to be removed
+-`groupUsername` _{string}_ - The name of the group
+- `removedGroupMemberUsername` _{string}_ - The username the user being removed from the group
 
 **Returns**
 
@@ -399,13 +418,16 @@ This renders the `index.html` file that will be used to interact with the backen
 
 **Throws**
 
-- `400` if user not in group
+- `400` - If user with username is not given
+- `403` - If user is not logged in
+- `404` - If group with the given username does not exist or user with given username does not exist
 
-#### `PUT /api/contactInformationDisplay/:groupId?` - Creates new contact information Display view
+#### `PUT /api/groupTagging?groupUsername=username1&addedAdminUsername=username2&action=addAdmin` - Adds a New Admin to a Group
+
 **Body**
 
-- `username` _{string}_ - Member to be added
-- `admin` _{boolean}_ - change member's status to admin
+-`groupUsername` _{string}_ - The name of the group
+- `addedAdminUsername` _{string}_ - The username the user being added to the group
 
 **Returns**
 
@@ -414,4 +436,99 @@ This renders the `index.html` file that will be used to interact with the backen
 
 **Throws**
 
-- `400` if user does not exist in group
+- `400` - If user with username is not given
+- `403` - If user is not logged in
+- `404` - If group with the given username does not exist or user with given username does not exist
+
+#### `PUT /api/groupTagging?groupUsername=username1&removedAdminUsername=username2&action=removeAdmin` - Removes a Admin from a Group
+
+**Body**
+
+-`groupUsername` _{string}_ - The name of the group
+- `removedAdminUsername` _{string}_ - The username the user being removed from the group
+
+**Returns**
+
+- A success message
+- An object with the updated group
+
+**Throws**
+
+- `400` - If user with username is not given
+- `403` - If user is not logged in
+- `404` - If group with the given username does not exist or user with given username does not exist
+
+#### `GET /api/groupTagging?groupUsername=username` - Gets a group's information by username
+
+**Returns**
+
+- A success message
+- An object with the update contact information details 
+
+**Throws**
+
+- `404` - If group with the given username does not exist
+
+#### `POST /api/followers` - Creates a follower view for a user
+**Body**
+
+- `username` _{string}_ - The username of the user
+
+**Returns**
+
+- A success message
+- An object with the new follower view
+
+**Throws**
+
+- `400` - If username is not given
+- `403` - If user is not logged in
+- `409` - If user follower view already exists
+
+#### `PUT /api/followers?usernameOfFollowed=username1&usernameOfFollower=username2&add=true` - Adds a New Follower to a User
+
+**Body**
+
+-`usernameOfFollowed` _{string}_ - The username of the user that is being followed
+- `usernameOfFollower` _{string}_ - The username of the user that is becoming a follower of the first user
+
+**Returns**
+
+- A success message
+- An object with the updated follower view
+
+**Throws**
+
+- `400` - If either of the usernames are not given or are not valid
+- `403` - If user is not logged in
+- `404` - If either user does not have a follower view
+
+#### `PUT /api/followers?usernameOfFollowed=username1&usernameOfFollower=username2&add=false` - Removes a Follower from a User
+
+**Body**
+
+-`usernameOfFollowed` _{string}_ - The username of the user that was being followed
+- `usernameOfFollower` _{string}_ - The username of the user that is being removed as a follower of the first user
+
+**Returns**
+
+- A success message
+- An object with the updated follower view
+
+**Throws**
+
+- `400` - If user with username is not given
+- `403` - If user is not logged in
+- `404` - If either user does not have a follower view
+
+#### `GET /api/followers?username=username&followers=false` - Gets a user's follower view by username
+
+**Returns**
+
+- A success message
+- An object with the update contact information details 
+
+**Throws**
+
+- `400` - If username is not given
+- `404` - If user follower view does not exist
