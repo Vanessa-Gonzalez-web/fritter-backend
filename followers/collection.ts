@@ -42,7 +42,7 @@ class FollowersCollection {
    */
   static async addFollower(usernameOfFollowed: string, usernameOfFollower: string): Promise<HydratedDocument<Followers>> {
     // Marks that usernameOfFollowed gained usernameOfFollower as a follower
-    const followed = await FollowersModel.findOne({usernameOfFollowed});
+    const followed = await this.findOneByUsername(usernameOfFollowed);
     // Only allow a user to be added to the list once
     if (!followed.followers.includes(usernameOfFollower)) {
       followed.followers.push(usernameOfFollower);
@@ -68,7 +68,7 @@ class FollowersCollection {
    * @return {Promise<HydratedDocument<Followers>>} - Edited Followed User
    */
   static async removeFollower(usernameOfFollowed: string, usernameOfFollower: string): Promise<HydratedDocument<Followers>> {
-    const followed = await FollowersModel.findOne({usernameOfFollowed});
+    const followed = await this.findOneByUsername(usernameOfFollowed);
     const index1 = followed.followers.indexOf(usernameOfFollower);
     // Only remove follower if they are found in the list
     if (index1 !== -1) {
@@ -77,7 +77,6 @@ class FollowersCollection {
 
     await followed.save(); // Saves user to MongoDB
 
-    // const following = await FollowersModel.findOne({usernameOfFollower});
     const following = await this.findOneByUsername(usernameOfFollower);
     const index2 = following.following.indexOf(usernameOfFollowed);
     // Only remove following if they are found in the list
